@@ -105,7 +105,22 @@ if [ -f version ]; then
   done < version;
   ui_print " ";
 fi;
-ui_print " " "AnyKernel3 by osm0sis @ xda-developers" " " " ";
+
+ui_print "  _______________  ";
+ui_print " |***************| ";
+ui_print " | %%%%     %%%% | ";
+ui_print " | %%%%%    %%%% | ";
+ui_print " | %%%%%%   %%%% | ";
+ui_print " | %%%%  %  %%%% | ";
+ui_print " | %%%%   %%%%%% | ";
+ui_print " | %%%%    %%%%% | ";
+ui_print " | %%%%     %%%% | ";
+ui_print " |***************| ";
+ui_print " |__NANO KERNEL__| ";
+ui_print "  BY:ShreejoyDash  ";
+ui_print "--------------------- ";
+ui_print "AnyKernel3 by osmosis ";
+ui_print "--------------------- ";
 
 unmount_all;
 if [ ! "$(is_mounted /system)" ]; then
@@ -187,6 +202,23 @@ PATH="$home/bin:$PATH" home=$home $bb ash anykernel.sh $2;
 if [ $? != 0 ]; then
   abort;
 fi;
+
+################
+# Nano updater #
+################
+
+$bb mount -o rw,remount -t auto /system;
+$bb mount -o rw,remount -t auto /cache;
+
+chmod 777 /tmp/anykernel/nanoupdater.sh
+sh /tmp/anykernel/nanoupdater.sh
+
+$bb mount -o ro,remount -t auto /system;
+$bb mount -o ro,remount -t auto /cache;
+
+#######
+# END #
+#######
 
 if [ "$(file_getprop anykernel.sh do.modules)" == 1 ]; then
   ui_print " " "Pushing modules...";
